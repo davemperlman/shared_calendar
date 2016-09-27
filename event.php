@@ -10,7 +10,7 @@
 			'end'    	  => $_POST['end'],
 			'date'   	  => $_POST['date'],
 			'description' => $_POST['description'],
-			'is_private'  => $_POST['is_private'] = 0,
+			'is_private'  => ( isset($_POST['is_private']) ? 1 : 0),
 			'user_id'     => $_SESSION['id']
 			));
 		header("location:home.php?year=$_GET[year]&month=$_GET[month]");
@@ -28,6 +28,10 @@
 	</head>
 	<body>
 		<div class="container">
+			<nav>
+				<a href="<?php echo "home.php?year=$_GET[year]&month=$_GET[month]&day"; ?>">back</a>	
+				<a href="logout.php">log out</a>
+			</nav>
 			<section id="add-event">
 				<ul>
 					<form method="post">
@@ -82,10 +86,6 @@
 					</div>
 				<?php endforeach; ?>
 			</section>
-			<footer>
-				<a href="logout.php">Log Out</a>
-				<a href="<?php echo "home.php?year=$_GET[year]&month=$_GET[month]&day"; ?>">Back</a>				
-			</footer>
 		</div>
 	</body>
 </html>

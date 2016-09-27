@@ -2,7 +2,24 @@ body {
 	background: #ddd;
 }
 
-
+nav {
+	margin-bottom: 15px;
+	 a {
+		text-decoration: none;
+		background: #eee;
+		padding: 3px;
+		display: block;
+		width: 80px;
+		text-align: center;
+		border: 1px outset #bbb;
+		color: #787;
+		font-variant: small-caps;
+		box-shadow: 1px 1px 1px #000;
+			&:hover {
+					border: 1px inset #bbb;
+				}
+	}
+}
 
 .container {
 	width: 1000px;

@@ -56,6 +56,10 @@ $events = $conn->raw_query("SELECT events.id, title, start, end, date, descripti
 		<div class="container">
 			<h1><?php echo $month_first_day['month']; ?></h1>
 			<p id="year"><?php echo $month_first_day['year']; ?></p>
+			<nav>
+				<a href="index.php">this month</a>
+				<a href="logout.php">log out</a>
+			</nav>
 			<form method="get" id="month-select">
 				<label for="year">Year: </label>
 				<select name="year" id="year">
@@ -70,8 +74,7 @@ $events = $conn->raw_query("SELECT events.id, title, start, end, date, descripti
 					} ?>
 				</select>
 				<input type="submit">
-				<p>or:</p>
-				<a href="index.php">Current</a>
+				<p></p>
 			</form>
 			<table>
 			<tr>
@@ -92,7 +95,7 @@ $events = $conn->raw_query("SELECT events.id, title, start, end, date, descripti
 					$parsed_scheduler = strtotime("$scheduling_iterator[month] $scheduling_iterator[mday] $scheduling_iterator[year]");
 					$parsed_date = date('Y-m-d', $parsed_scheduler);
 
-				  	if ( $conn->raw_query("SELECT id FROM events WHERE date = '$parsed_date'") == true ) {
+				  	if ( $conn->raw_query("SELECT id FROM events WHERE date = '$parsed_date' AND user_id = '$_SESSION[id]'") == true ) {
 				  		echo "<td class='scheduled'><a href='event.php?day=$i&month=$date[month]&year=$date[year]'>" . $i . "</a></td>";
 				  	} else {
 				  echo "<td><a href='event.php?day=$i&month=$month_first_day[mon]&year=$current_year'>" . $i . "</a></td>";
@@ -121,9 +124,6 @@ $events = $conn->raw_query("SELECT events.id, title, start, end, date, descripti
 					</div>
 				<?php endforeach; ?>
 			</section>
-			<footer>
-				<a href="logout.php">Log Out</a>				
-			</footer>
 		</div>
 	</body>
 </html>
