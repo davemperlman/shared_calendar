@@ -1,0 +1,88 @@
+body {
+  background: #ddd; }
+
+.container {
+  width: 1000px;
+  margin: 0 auto; }
+  .container #year {
+    font-size: 1.4em;
+    margin-left: 10px; }
+  .container table {
+    table-layout: fixed;
+    width: 100%; }
+    .container table th {
+      font-size: 1.4em;
+      width: 100px; }
+    .container table td {
+      border: 1px solid #000;
+      padding: 0;
+      margin: 0;
+      height: 125px;
+      transition: 1s background ease;
+      background: #efefef; }
+      .container table td:hover {
+        transition: 1s background ease;
+        background: #ccc; }
+      .container table td:empty {
+        background: #666; }
+      .container table td a {
+        position: relative;
+        top: -50px;
+        right: -5px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 1.2em; }
+    .container table .scheduled {
+      background: #959; }
+      .container table .scheduled:hover {
+        background: #a7a; }
+  .container .events {
+    width: 600px;
+    margin: 0 auto; }
+  .container .event-item {
+    width: 100%;
+    background: #eee;
+    padding: 10px;
+    margin: 20px 0 10px 20px; }
+    .container .event-item a {
+      text-decoration: none;
+      position: relative;
+      right: -510px;
+      background: #fff;
+      padding: 3px;
+      display: block;
+      width: 80px;
+      text-align: center;
+      border: 1px outset #ddd;
+      color: #787;
+      box-shadow: 1px 1px 1px #000; }
+      .container .event-item a:hover {
+        border: 1px inset #ddd; }
+    .container .event-item ul li {
+      list-style: none;
+      padding: 5px; }
+
+#add-event form {
+  margin: 40px auto;
+  padding: 30px;
+  width: 500px;
+  box-shadow: 1px 1px 1px #000;
+  background: #fff; }
+  #add-event form li {
+    list-style: none;
+    display: block;
+    margin-top: 10px; }
+    #add-event form li input[type=text] {
+      border: none;
+      outline: none;
+      background: #eee;
+      padding: 5px; }
+    #add-event form li textarea {
+      border: none;
+      outline: none;
+      background: #eee;
+      resize: none;
+      width: 70%;
+      height: 100px; }
+
+/*# sourceMappingURL=style.css.map */
