@@ -3,6 +3,7 @@ require 'config.php';
 
 isset($_SESSION['id']) ? '' : header('location:index.php');
 
+
 // Current Date, Month, and Year
 $date = getdate();
 !isset($_GET['month']) ? $current_month = $date['mon'] : $current_month = $_GET['month'];
@@ -42,8 +43,12 @@ $months_arr = array(
 $years = range($date['year'], $current_year+10);
 
 // Displaying Events
-$events = $conn->raw_query("SELECT events.id, title, start, end, date, description, is_private, user_id, first_name, last_name FROM events RIGHT JOIN users ON user_id = users.id WHERE is_private = 1 OR user_id = $_SESSION[id]");
+$events = $conn->raw_query("SELECT events.id, title, date, body, is_private, user_id FROM events RIGHT JOIN users ON user_id = users.id WHERE is_private = 1 OR user_id = $_SESSION[id]");
 
+
+$datething = new DateControl();
+
+print_r($datething); die();
 ?>
 
 <!DOCTYPE html>
@@ -76,37 +81,7 @@ $events = $conn->raw_query("SELECT events.id, title, start, end, date, descripti
 				<input type="submit">
 				<p></p>
 			</form>
-			<table>
-			<tr>
-				<?php foreach ($weekdays as $day) {
-					echo "<th>$day</th>";
-				} ?>
-			</tr>
-			<?php 
-				// Fills the beginning days with empty space if the month doesn't start on Sunday
-			for ($i = 0; $i < $month_start_position ; $i++) { 
-				echo "<td></td>";
-			}
-				// Inserts new rows at the end of each week
-				  $j = $month_start_position + 1;
-
-				  for ($i = 1; $i < $days + 1; $i++, $j++) { 
-				  	$scheduling_iterator = getdate(mktime(0,0,0,$current_month,$i,$current_year));
-					$parsed_scheduler = strtotime("$scheduling_iterator[month] $scheduling_iterator[mday] $scheduling_iterator[year]");
-					$parsed_date = date('Y-m-d', $parsed_scheduler);
-
-				  	if ( $conn->raw_query("SELECT id FROM events WHERE date = '$parsed_date' AND user_id = '$_SESSION[id]'") == true ) {
-				  		echo "<td class='scheduled'><a href='event.php?day=$i&month=$date[month]&year=$date[year]'>" . $i . "</a></td>";
-				  	} else {
-				  echo "<td><a href='event.php?day=$i&month=$month_first_day[mon]&year=$current_year'>" . $i . "</a></td>";
-					}
-				  	if ($j >= 7) {
-				  		echo "</tr><tr>";
-				  		$j = 0;
-				  	}
-				  }
-			?>
-			</table>
+			<?php Calendar::create($datething); ?>
 			<section class="events">
 				<?php foreach ($events as $event => $info) : ?> 
 					<div class="event-item">

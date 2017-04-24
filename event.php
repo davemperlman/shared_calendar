@@ -4,19 +4,17 @@
 	$time = strtotime("$_GET[day]-" . "$_GET[month]-" . "$_GET[year]");
 	$date = date('Y-m-d', $time);
 	if ( isset($_POST['submit']) ) {
-		$conn->prepared_query("INSERT INTO events (title, start, end, date, description, is_private, user_id) VALUES(:title, :start, :end, :date, :description, :is_private, :user_id)", array(
+		$conn->prepared_query("INSERT INTO events (title, date, body, is_private, user_id) VALUES(:title, :date, :body, :is_private, :user_id)", array(
 			'title'  	  => $_POST['title'],
-			'start'  	  => $_POST['start'],
-			'end'    	  => $_POST['end'],
 			'date'   	  => $_POST['date'],
-			'description' => $_POST['description'],
+			'body' => $_POST['description'],
 			'is_private'  => ( isset($_POST['is_private']) ? 1 : 0),
 			'user_id'     => $_SESSION['id']
 			));
 		header("location:home.php?year=$_GET[year]&month=$_GET[month]");
 	}
 
-	$events = $conn->raw_query("SELECT events.id, title, start, end, date, description, is_private, user_id, first_name, last_name FROM events RIGHT JOIN users ON user_id = users.id WHERE is_private = 1 OR user_id = $_SESSION[id]");
+	$events = $conn->raw_query("SELECT events.id, title, date, body, is_private, user_id FROM events RIGHT JOIN users ON user_id = users.id WHERE is_private = 1 OR user_id = $_SESSION[id]");
 ?>
 
 
