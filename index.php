@@ -2,6 +2,7 @@
 require 'config.php';
 $status = '';
 
+// Authentication of User credentials
 if ( isset($_POST['submit']) ) {
 	$result = $conn->sign_in($_POST['username'], $_POST['password']);
 	$result ? $_SESSION['id'] = $result['id']: $status = 'Invalid Login Credentials';
@@ -15,25 +16,6 @@ isset( $_SESSION['id'] ) ? header('location:home.php') : '';
 <html>
 <head>
 	<title>Dave's Shared Calendar</title>
-	<style>
-		form {
-			width: 400px;
-			margin: 20px auto;
-		}
-		li {
-			list-style: none;
-			margin-top: 5px;
-		}
-		input {
-			padding: 5px;
-			outline: none;
-			border: none;
-			background: #eee;
-		}
-		input[type=submit]:hover{
-			background: #bbb;
-		}
-	</style>
 </head>
 <body>
 	<form method="post">

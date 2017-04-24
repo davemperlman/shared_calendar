@@ -1,8 +1,10 @@
 <?php
 
 /**
-*  For Database connection
+*  Database connection and methods utilizing that connection.
 */
+
+
 class DB
 {
 	private $db;

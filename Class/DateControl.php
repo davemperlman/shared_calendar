@@ -1,8 +1,9 @@
 <?php
 
 /**
-* 
+* This class sets the parameters for the current calendar. It accepts a month and year as arguments to create a custom calendar, or no arguments for a current month of the current year calendar.
 */
+
 class DateControl {
 
 	public $firstDom;
@@ -10,15 +11,7 @@ class DateControl {
 	public $month;
 	public $year;
 
-	public $weekdays = array(
-		'0' => 'Sunday',
-		'1' => 'Monday',
-		'2' => 'Tuesday',
-		'3' => 'Wednesday',
-		'4' => 'Thursday',
-		'5' => 'Friday',
-		'6' => 'Saturday'
-		);
+	public $weekdays = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
 
 	public $months = array(
 		'1'  => 'January',
@@ -43,12 +36,19 @@ class DateControl {
 
 		date_default_timezone_set('America/New_York');
 		$date = ($date ? $date : getdate());
-		
 		$this->month     = $date['mon'];
 		$this->year      = $date['year'];
 		$this->firstDom  = getdate(mktime(0,0,0, $this->month, 1, $this->year))['mday'];
-		$this->firstWdom = array_search($this->firstDom['weekday'], $this->weekdays)['wday'];
+		$this->firstWdom = array_search(getdate(mktime(0,0,0, $this->month, 1, $this->year))['weekday'], $this->weekdays);
 		$this->dayCount = cal_days_in_month(CAL_GREGORIAN, $this->month, $this->year);
-		$this->range = range($date['year'], $this->year + 10);
+		$this->range = range(date('Y'), date('Y') + 10);
+	}
+
+	public function getMonth() {
+		foreach ($this->months as $month => $value) {
+			if ($this->month == $month) {
+				return $value;
+			}
+		}
 	}
 }
